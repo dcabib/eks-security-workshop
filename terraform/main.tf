@@ -98,8 +98,9 @@ module "eks_blueprints_kubernetes_addons" {
   # Add-ons
   enable_aws_load_balancer_controller = true
   enable_metrics_server               = true
+  enable_argocd                       = true
   enable_cluster_autoscaler           = false
-  enable_karpenter                    = false
+  enable_karpenter                    = true
   enable_aws_cloudwatch_metrics       = false
   enable_aws_for_fluentbit            = false
 
