@@ -1,10 +1,10 @@
 # EKS Security Workshop
 
-Neste workshop, exploraremos boas práticas de segurança em [Amazon Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks/) utilizando ferramentas Open Source
+Neste workshop, exploraremos boas práticas de segurança em [Amazon Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks/) utilizando ferramentas Open Source.
 
-Usaremos o [EKS Blueprints](https://aws-ia.github.io/terraform-aws-eks-blueprints/v4.9.0/) e o Helm Charts (https://helm.sh/docs/topics/charts/) para podermos criar e configurar as mais diversas ferramentas/addons para assim melhorar a segurança do seus Clusters EKS.
+Usaremos o [EKS Blueprints](https://aws-ia.github.io/terraform-aws-eks-blueprints/v4.9.0/) e o [Helm Charts](https://helm.sh/docs/topics/charts/) para podermos criar e configurar as mais diversas ferramentas/addons para assim melhorar a segurança do seus Clusters EKS.
 
-Esses labs são baseados na seguinte documentação: Amazon EKS Best Practices Guide for Security (https://aws.github.io/aws-eks-best-practices/security/docs/)
+Esses labs são baseados na seguinte documentação: [Amazon EKS Best Practices Guide for Security](https://aws.github.io/aws-eks-best-practices/security/docs/)
 
 ## Capítulos
 
