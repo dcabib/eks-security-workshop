@@ -6,7 +6,7 @@
 
 Mesmo com a maior parte do ambiente já preparado, precisamos realizar pequenas modificações que não foram possíveis de automatizar:
 
-1. Seguindo os passos descritos inicialmente aqui no repositório, vamos acessar a console do serviço AWS Cloud9 e abrir o nosso ambiente chamado `latamcontainersroadshow`:
+1. Seguindo os passos descritos inicialmente aqui no repositório, vamos acessar a console do serviço AWS Cloud9 e abrir o nosso ambiente chamado `ekssecurityworkshop`:
 
 ![Imagem animada onde usamos a barra de busca para acessar diretamente a console do serviço AWS Cloud9](../static/1.1-access_c9_env.gif)
 
