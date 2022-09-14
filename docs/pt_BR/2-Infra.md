@@ -1,5 +1,7 @@
 # EKS Security Workshop
 
+[**< Voltar**](./1-Prepare.md)
+
 ### Exporte variáveis ​​que serão utilizadas pelo workshop. 
 
 ```bash
@@ -74,3 +76,4 @@ aws eks --region ${AWS_REGION} update-kubeconfig --name ${CLUSTER_NAME}
 ```bash
 kubectl get nodes
 ```
+[**Próximo >**](./3-Lab1.md)
