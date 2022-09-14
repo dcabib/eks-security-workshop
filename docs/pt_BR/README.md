@@ -9,7 +9,7 @@ Esses labs são baseados na seguinte documentação: [Amazon EKS Best Practices 
 ## Capítulos
 
 1.  [Preparando o Ambiente de Trabalho](./1-Prepare.md)
-2.  [Construindo a Infraestrutura](./2-Build.md)
+2.  [Construindo a Infraestrutura](./2-Infra.md)
 3.  [Lab1 - Identity and Access Management](./3-Lab1.md)
 4.  [Lab2 - Pod Security](./4-Lab2.md)
 5.  [Lab3 - Tenant Isolation](./5-Lab3.md)
