@@ -76,4 +76,6 @@ aws eks --region ${AWS_REGION} update-kubeconfig --name ${CLUSTER_NAME}
 ```bash
 kubectl get nodes
 ```
+Agora que nosso Cluster EKS já está no ar podemos iniciar nossos labs de segurança!
+
 [**Próximo >**](./3-Lab1.md)
