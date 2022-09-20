@@ -21,7 +21,7 @@ Scanners:
     Informações confidenciais e segredos
 
 
-Como instalar: 
+## Como instalar localmente: 
 
 ```bash
 rpm -ivh https://github.com/aquasecurity/trivy/releases/download/v0.32.0/trivy_0.32.0_Linux-64bit.rpm
@@ -39,8 +39,9 @@ No nosso workshop podemos aplicar no diretório eks-security-workshop/terraform
 ```bash
 trivy config eks-security-workshop/terraform
 ```
+## Como instalar em nosso EKS Cluster
 
-Kubernetes Cluster Scanning - trivy operator (instalação com helm)
+Kubernetes Cluster Scanning - trivy operator (instalação com helm):
 
 Primeiro, vamos adicionar o repositório Aqua Security Helm à nossa lista de repositórios Helm:
 
@@ -50,7 +51,10 @@ helm repo add aqua https://aquasecurity.github.io/helm-charts/
 
 Em seguida, atualizaremos todos os nossos repositórios do Helm. Mesmo que você tenha acabado de adicionar um novo repositório aos gráficos existentes, geralmente é uma boa prática ter acesso às alterações mais recentes:
 
+
+```bash
 helm repo update
+ ```
 
 Por fim, podemos instalar o Helm Chart do operador Trivy em nosso cluster:
 
@@ -86,11 +90,12 @@ O mesmo processo pode ser aplicado para acessar o Configauditreports:
 kubectl get configauditreports --all-namespaces -o wide 
 ```
 
-Aprenda mais:
-CI/CD:
+## Aprenda mais:
+
+### CI/CD:
 O trivy possui diversas formas de implementação e uma bastante interessante é de adicionar a verificação de vulnerabilidade na sua Pipeline de CI/CD, nesse blog post há um passo-a-passo para implementar uma pipeline com AWS Codepipeline: https://aws.amazon.com/blogs/containers/scanning-images-with-trivy-in-an-aws-codepipeline/
 
-GitOps:
+### GitOps:
 Outra forma bastante eficaz de instalar e operar o Trivy é utilizando o ArgoCD (esse Addon GitOps pode ser facilmente habilita via EKS Blueprints).Segue o passo-a-passo para configuração via ArgoCD: https://aquasecurity.github.io/trivy/v0.32/tutorials/kubernetes/gitops/
 
 [**Próximo >**](./8-Lab6.md)

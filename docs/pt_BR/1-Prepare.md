@@ -42,6 +42,6 @@ aws sts get-caller-identity
 
 ![Imagem da saída do comando 'aws sts get-caller-identity'](../static/1.3-sts_identity_check.png)
 
-Isso é tudo! Vamos começar a criar nosso ambiente do Amazon ECS com a CLI do AWS Copilot.
+Isso é tudo, vamos começar a criar nosso ambiente do Amazon EKS utilizando EKS Blueprints e Terraform!
 
 [**Próximo >**](./2-Infra.md)
