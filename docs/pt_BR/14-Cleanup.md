@@ -2,11 +2,12 @@
 
 ## Limpando os recursos
 
-### Executar o Terraform Destroy - deletenado a Infra
+### Executar o Terraform Destroy - deletando a Infra
 
 ```bash
 cd latam-containers-roadshow/workshops/eks/terraform/
 terraform destroy --auto-approve
 ```
+Obrigado por participarem do Workshop! Fiquem a vontade para executar PR's! 
 
 [**< Voltar**](./13-Lab11.md)
