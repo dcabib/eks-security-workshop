@@ -8,6 +8,11 @@ output "vpc_public_subnet_cidr" {
   value       = module.vpc.public_subnets_cidr_blocks
 }
 
+output "vpc_id" {
+  description = "The ID of the VPC"
+  value       = module.vpc.vpc_id
+}
+
 output "vpc_cidr" {
   description = "VPC CIDR"
   value       = module.vpc.vpc_cidr_block
