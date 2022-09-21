@@ -82,7 +82,7 @@ De dentro do terminal do Cloud9, crie um novo usuário chamado rbac-user e gere/
 
 Ao executar a etapa anterior, você deve obter uma resposta semelhante a:
 
-<sub>
+```
 {
     "AccessKey": {
         "UserName": "rbac-user",
@@ -92,16 +92,16 @@ Ao executar a etapa anterior, você deve obter uma resposta semelhante a:
         "AccessKeyId": < AWS Access Key >
     }
 }
-</sub> 
+``` 
 
 Para facilitar a alternância entre o usuário administrador com o qual você criou o cluster e esse novo rbac-user, execute o seguinte comando para criar um script que, quando originado, define o usuário ativo como rbac-user: 
 
-<sub>
+```
 cat << EoF > rbacuser_creds.sh
 export AWS_SECRET_ACCESS_KEY=$(jq -r .AccessKey.SecretAccessKey /tmp/create_output.json)
 export AWS_ACCESS_KEY_ID=$(jq -r .AccessKey.AccessKeyId /tmp/create_output.json)
 EoF
-</sub> 
+``` 
 
 ## Mapear um usuário do IAM para K8s
 
@@ -113,14 +113,14 @@ kubectl get configmap -n kube-system aws-auth -o yaml | grep -v "creationTimesta
 
 Em seguida, anexe o mapeamento rbac-user ao configMap existente: 
 
-<sub>
+```
 cat << EoF >> aws-auth.yaml
 data:
   mapUsers: |
     - userarn: arn:aws:iam::${ACCOUNT_ID}:user/rbac-user
       username: rbac-user
 EoF
-</sub>
+```
 
 Alguns dos valores podem ser preenchidos dinamicamente quando o arquivo é criado. Para verificar tudo preenchido e criado corretamente, execute o seguinte: 
 
@@ -130,7 +130,7 @@ cat aws-auth.yaml
 
 E a saída deve refletir esse rolearn e userarn preenchidos, semelhante a: 
 
-<sub>
+```
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -140,7 +140,7 @@ data:
   mapUsers: |
     - userarn: arn:aws:iam::123456789:user/rbac-user
       username: rbac-user
-</sub> 
+``` 
 
 Em seguida, aplique o ConfigMap para aplicar este mapeamento ao sistema: 
 
@@ -166,13 +166,13 @@ aws sts get-caller-identity
 
 Você deve ver algo semelhante ao abaixo, onde agora estamos fazendo chamadas de API como rbac-user: 
 
-<sub>
+```
 {
     "Account": <AWS Account ID>,
     "UserId": <AWS User ID>,
     "Arn": "arn:aws:iam::<AWS Account ID>:user/rbac-user"
 }
-</sub>
+```
 
 Agora que estamos fazendo chamadas no contexto do rbac-user, vamos fazer rapidamente uma solicitação para obter todos os pods: 
 
@@ -182,9 +182,9 @@ kubectl get pods -n rbac-test
 
 Você deve obter uma resposta de volta semelhante a: 
 
-<sub>
+```
 No resources found.  Error from server (Forbidden): pods is forbidden: User "rbac-user" cannot list resource "pods" in API group "" in the namespace "rbac-test"
-</sub>
+```
 
 Já criamos o rbac-user, então por que recebemos esse erro? 
 
@@ -209,17 +209,17 @@ aws sts get-caller-identity
 
 A saída deve mostrar que o usuário não é mais rbac-user: 
 
-<sub>
+```
 {
     "Account": <AWS Account ID>,
     "UserId": <AWS User ID>,
     "Arn": "arn:aws:iam::<your AWS account ID>:assumed-role/eksworkshop-admin/i-123456789"
 }
-</sub>
+```
 
 Agora que somos o usuário administrador novamente, criaremos uma função chamada pod-reader que fornece acesso de lista, obtenção e observação para pods e implantações, mas apenas para o namespace rbac-test. Execute o seguinte para criar esta role: 
 
-<sub>
+```
 cat << EoF > rbacuser-role.yaml
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
@@ -234,11 +234,11 @@ rules:
   resources: ["deployments"]
   verbs: ["get", "list", "watch"]
 EoF
-</sub>
+```
 
 Temos o usuário, temos a Role e agora os vinculamos com um recurso RoleBinding. Execute o seguinte para criar este RoleBinding: 
 
-<sub>
+```
 cat << EoF > rbacuser-role-binding.yaml
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
@@ -254,7 +254,7 @@ roleRef:
   name: pod-reader
   apiGroup: rbac.authorization.k8s.io
 EoF
-</sub>
+```
 
 Em seguida, aplicamos o Role e RoleBindings que criamos: 
 
@@ -284,10 +284,10 @@ kubectl get pods -n rbac-test
 A saída deve ser semelhante a: 
 
 
-<sub>
+```
 NAME                    READY     STATUS    RESTARTS   AGE
 nginx-55bd7c9fd-kmbkf   1/1       Running   0          23h
-</sub>
+```
 
 Tente executar o mesmo comando novamente, mas fora do namespace rbac-test: 
 
@@ -297,16 +297,16 @@ kubectl get pods -n kube-system
 
 Você deve receber um erro semelhante a: 
 
-<sub>
+```
 No resources found.
 Error from server (Forbidden): pods is forbidden: User "rbac-user" cannot list resource "pods" in API group "" in the namespace "kube-system"
-</sub>
+```
 
 Porque a Role à qual você está vinculado não fornece acesso a nenhum namespace diferente de rbac-test. 
 
 ## Limpando as configurações
 
-<sub>
+```
 unset AWS_SECRET_ACCESS_KEY
 unset AWS_ACCESS_KEY_ID
 kubectl delete namespace rbac-test
@@ -316,15 +316,15 @@ rm rbacuser-role-binding.yaml
 aws iam delete-access-key --user-name=rbac-user --access-key-id=$(jq -r .AccessKey.AccessKeyId /tmp/create_output.json)
 aws iam delete-user --user-name rbac-user
 rm /tmp/create_output.json
-</sub>
+```
 
 Em seguida, remova o mapeamento rbac-user do configMap existente editando o arquivo aws-auth.yaml existente:
 
-<sub>
+```
 data:
   mapUsers: |
     []
-</sub>
+```
 
 E aplique o ConfigMap e exclua o arquivo aws-auth.yaml
 
