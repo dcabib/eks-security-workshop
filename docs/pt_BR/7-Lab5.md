@@ -89,7 +89,7 @@ Escolha Key/Value e vamos adicionar algumas entradas:
 Vai ficar similar a essa imagem:
 
 <p align="left"> 
-<img src="../static/7.1-secrets1">
+<img src="../static/7.1-secrets1.png">
 </p>
 
 Na página seguinte preencha:
@@ -100,13 +100,13 @@ Na página seguinte preencha:
 Ficará similar a essa imagem:
 
 <p align="left"> 
-<img src="../static/7.2-secrets2">
+<img src="../static/7.2-secrets2.png">
 </p>
 
 Nos demais passos siga sem alterar e ao final do processo terá:
 
 <p align="left"> 
-<img src="../static/7.3-secrets3">
+<img src="../static/7.3-secrets3.png">
 </p>
 
 
@@ -139,7 +139,7 @@ Escolher JSON e adicionar o seguinte código:
 O resultado será esse:
 
 <p align="left"> 
-<img src="../static/7.4-secrets4">
+<img src="../static/7.4-secrets4.png">
 </p>
 
 Seguir sem adicionar nada em tags e na tela seguinte adicionar:
@@ -150,7 +150,7 @@ Seguir sem adicionar nada em tags e na tela seguinte adicionar:
 Sua policy ficará similar a essa:
 
 <p align="left"> 
-<img src="../static/7.5-secrets5">
+<img src="../static/7.5-secrets5.png">
 </p>
 
 4. Com nossa secret criada e uma policy para ler a mesma agora é a hora de criarmos uma IAM Service Account (SA) utilizando essa IAM Role que acabamos de criar:
@@ -369,7 +369,7 @@ echo $LAB_SECRET_USERNAME
 E obter uma saída semelhante a essa: 
 
 <p align="left"> 
-<img src="../static/7.6-secrets6">
+<img src="../static/7.6-secrets6.png">
 </p>
 
 ***Add parte de cleanup!!!***
