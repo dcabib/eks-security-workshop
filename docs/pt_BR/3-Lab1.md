@@ -18,21 +18,21 @@ De acordo com os documentos oficiais do kubernetes:
 
 ### Os principais componentes lógicos do RBAC são:
 
-<Entity (Entidade)>
+*Entity (Entidade)*
 Um grupo, usuário ou conta de serviço (uma identidade que representa um aplicativo que deseja executar determinadas operações (ações) e requer permissões para isso).
 
-<Resource (Recurso)>
+*Resource (Recurso)*
 Um pod, serviço ou secret (segredo) que a entity (entidade) deseja acessar usando determinadas operações.
 
-<Role (Função)>
+*Role (Função)*
 Usado para definir regras para as ações que a entity (entidade) pode realizar em vários recursos.
 
-<Role binding (Vinculação de papéis)>
+*Role binding (Vinculação de papéis)*
 Isso anexa (vincula) uma role (função) a uma entity (entidade), informando que o conjunto de regras define as ações permitidas pela entidade anexada nos recursos especificados.
 
 Existem dois tipos de roles (funções): Role e ClusterRole e suas respectivas associações (RoleBinding, ClusterRoleBinding). Eles diferenciam entre autorização em um namespace ou em todo o cluster.
 
-<Namespace>
+*Namespace*
 
 Os namespaces são uma excelente maneira de criar limites de segurança, eles também fornecem um escopo exclusivo para nomes de objetos, como o nome 'namespace' indica. Eles devem ser usados ​​em ambientes multilocatários para criar clusters kubernetes virtuais no mesmo cluster físico.
 
