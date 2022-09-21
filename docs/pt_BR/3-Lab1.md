@@ -63,7 +63,7 @@ kubectl get all -n rbac-test
 ```
 A saída deve ser semelhante a:
 
-<sub>
+```
 NAME                       READY   STATUS    RESTARTS   AGE
 pod/nginx-5c7588df-8mvxx   1/1     Running   0          48s
 
@@ -72,7 +72,7 @@ deployment.apps/nginx   1/1     1            1           48s
 
 NAME                             DESIRED   CURRENT   READY   AGE
 replicaset.apps/nginx-5c7588df   1         1         1       48s
-</sub>
+```
 
 ## Crie um usuário
 
@@ -332,6 +332,5 @@ E aplique o ConfigMap e exclua o arquivo aws-auth.yaml
 kubectl apply -f aws-auth.yaml
 rm aws-auth.yaml
 ```
-
 
 [**Próximo >**](./4-Lab2.md)
