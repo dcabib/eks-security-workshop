@@ -6,7 +6,7 @@
 
 Nesta série de laboratórios, consideramos vários tópicos relacionados ao gerenciamento de identidade e acesso.
 
-## 1.a - Introduction to Role Based Access Control (RBAC)
+## 1.a - Introdução a  Role Based Access Control (RBAC)
 
 Este lab é reproduzido a partir do oficial [EKSWorkshop.com](https://www.eksworkshop.com/beginner/090_rbac/intro/) 
 
@@ -332,5 +332,19 @@ E aplique o ConfigMap e exclua o arquivo aws-auth.yaml
 kubectl apply -f aws-auth.yaml
 rm aws-auth.yaml
 ```
+
+## 1.b Como usar grupos do IAM para gerenciar o acesso ao cluster do Kubernetes
+
+Na introdução ao módulo RBAC, vimos como podemos dar acesso a usuários individuais ao Kubernetes.
+
+Se você tiver equipes diferentes que precisam de um tipo diferente de acesso ao cluster, seria difícil adicionar ou remover manualmente o acesso para cada cluster EKS do qual você deseja conceder ou remover acesso.
+
+Podemos aproveitar os [grupos do AWS IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups.html)
+
+para adicionar ou remover usuários facilmente e dar a eles permissão para todo o cluster ou apenas parte dele, dependendo de quais grupos eles pertencem.
+
+Nesse lab, criaremos 3 funções do IAM que mapeamos para 3 grupos do IAM.
+
+
 
 [**Próximo >**](./4-Lab2.md)

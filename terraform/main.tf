@@ -86,7 +86,7 @@ module "eks_blueprints" {
 }
 
 module "eks_blueprints_kubernetes_addons" {
-  source = "github.com/aws-ia/terraform-aws-eks-blueprints//modules/kubernetes-addons?ref=v4.0.7"
+  source = "github.com/aws-ia/terraform-aws-eks-blueprints//modules/kubernetes-addons?ref=v4.10.0"
 
   eks_cluster_id = module.eks_blueprints.eks_cluster_id
 
@@ -103,6 +103,8 @@ module "eks_blueprints_kubernetes_addons" {
   enable_karpenter                    = true
   enable_aws_cloudwatch_metrics       = false
   enable_aws_for_fluentbit            = false
+  enable_external_secrets             = false
+  enable_secrets_store_csi_driver     = false
 
   aws_for_fluentbit_helm_config = {
     name                                      = "aws-for-fluent-bit"
