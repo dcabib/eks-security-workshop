@@ -5,7 +5,7 @@
 ### Executar o Terraform Destroy - deletando a Infra
 
 ```bash
-cd latam-containers-roadshow/workshops/eks/terraform/
+cd eks-security-woskshop/terraform/
 terraform destroy --auto-approve
 ```
 Obrigado por participarem do Workshop! Fiquem a vontade para executar PR's! 
