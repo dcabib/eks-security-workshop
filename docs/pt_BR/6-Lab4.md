@@ -12,7 +12,55 @@ Neste laboratório, veremos a demonstração da política starts (de estrelas) f
 
 ### Instalando o Calico 
 
-a. Aplique os manifestos Calico ao seu cluster. Esses manifestos criam um DaemonSet no namespace calico-system.
+a. (preferencial) Utilize os addons do EKS Blueprints para instalar o Calico em seu Cluster EKS:
+
+Para isso vamos habilitar o`Calico`na seção de complementos do nosso manifesto do terraform. Abra o`eks-security-workshop/terraform/main.tf`e mude o`enable_calico`de`false`para`true`.
+
+```terraform
+module "eks_blueprints_kubernetes_addons" {
+  source = "github.com/aws-ia/terraform-aws-eks-blueprints//modules/kubernetes-addons?ref=v4.10.0"
+
+  eks_cluster_id = module.eks_blueprints.eks_cluster_id
+
+  # EKS Managed Add-ons
+  enable_amazon_eks_vpc_cni    = true
+  enable_amazon_eks_coredns    = true
+  enable_amazon_eks_kube_proxy = true
+
+  # Add-ons
+  enable_aws_load_balancer_controller = true
+  enable_metrics_server               = true
+  enable_cluster_autoscaler           = true
+  enable_karpenter                    = false
+  enable_aws_cloudwatch_metrics       = false
+  enable_aws_for_fluentbit            = false
+  enable_external_secrets             = true
+  enable_secrets_store_csi_driver     = false
+  enable_calico                       = true
+  enable_gatekeeper                   = false
+  
+  tags = local.tags
+
+  depends_on = [module.eks_blueprints.managed_node_groups]
+}
+```
+
+Vamos executar em seguida o Terraform plan e verificar os recursos criados por esta execução: 
+
+```bash
+cd ~/environment/terraform/
+terraform plan
+```
+Em seguida vamos executar o Terraform apply para criar recursos: 
+
+```bash
+terraform apply --auto-approve
+```
+
+Observe os logs para verificar se o Calico foi implantado com êxito.
+
+
+b. Aplique os manifestos Calico ao seu cluster EKS. Esses manifestos criam um DaemonSet no namespace calico-system.
 
 ```
 kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/master/config/master/calico-operator.yaml
@@ -167,9 +215,7 @@ kubectl delete -f https://projectcalico.docs.tigera.io/security/tutorials/kubern
 kubectl delete -f https://projectcalico.docs.tigera.io/security/tutorials/kubernetes-policy-demo/manifests.yaml
 kubectl delete -f https://projectcalico.docs.tigera.io/security/tutorials/kubernetes-policy-demo/manifests/00-namespace.yaml
 kubectl delete -f 01-management-ui.yaml
-kubectl delete -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/master/config/master/calico-crs.yaml
-kubectl delete -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/master/config/master/calico-operator.yaml
 ``` 
-
+E volte seu /terraform/main.tf: enable_calico = false realizando o plan e o apply novamente a partir do path /terraform.
 
 [**Próximo >**](./7-Lab5.md)

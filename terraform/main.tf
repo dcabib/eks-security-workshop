@@ -105,6 +105,8 @@ module "eks_blueprints_kubernetes_addons" {
   enable_aws_for_fluentbit            = false
   enable_external_secrets             = false
   enable_secrets_store_csi_driver     = false
+  enable_calico                       = false
+  enable_gatekeeper                   = false
 
   aws_for_fluentbit_helm_config = {
     name                                      = "aws-for-fluent-bit"
