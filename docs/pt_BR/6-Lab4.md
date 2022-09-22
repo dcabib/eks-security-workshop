@@ -111,7 +111,7 @@ kubectl get svc management-ui -n management-ui -o jsonpath="{.status.loadBalance
 5. Abra um navegador em seu sistema local e aponte-o para http://<loadbalancer-step-anterior>:9001/. Você deve ver na managemnet-ui (interface do usuário de gerenciamento). O nó C é o serviço do cliente, o nó F é o serviço de front-end e o nó B é o serviço de back-end. Cada nó tem acesso total à comunicação com todos os outros nós, conforme indicado pelas linhas coloridas em negrito.
 
 <p align="center"> 
-<img src="../static/6.1-calico1.png" style="max-width: 50%">
+<img src="../static/6.1-calico1.png" width="50%" height="50%">
 </p>
 
 6. Aplique as seguintes network policies (políticas de rede) para isolar os serviços uns dos outros:
@@ -132,7 +132,7 @@ kubectl create -f https://projectcalico.docs.tigera.io/security/tutorials/kubern
 9. Atualize seu navegador. Você vê que a interface com o usuário de gerenciamento pode alcançar os nós novamente, mas os nós não podem se comunicar entre si.
 
 <p align="center"> 
-<img src="../static/6.2-calico2.png" style="max-width: 50%">
+<img src="../static/6.2-calico2.png" width="50%" height="50%">
 </p>
 
 10. Aplique a seguinte network policy (política de rede) para permitir o tráfego do serviço de front-end para o serviço de back-end:
@@ -144,7 +144,7 @@ kubectl create -f https://projectcalico.docs.tigera.io/security/tutorials/kubern
 11. Atualize seu navegador. Você vê que o front-end pode se comunicar com o back-end.
 
 <p align="center"> 
-<img src="../static/6.3-calico3.png" style="max-width: 50%">
+<img src="../static/6.3-calico3.png" width="50%" height="50%">
 </p>
 
 12. Aplique a seguinte network policy política de rede para permitir o tráfego do cliente para o serviço front-end.
@@ -156,7 +156,7 @@ kubectl create -f https://projectcalico.docs.tigera.io/security/tutorials/kubern
 13. Atualize seu navegador. Você vê que o cliente pode se comunicar com o serviço front-end. O serviço de front-end ainda pode se comunicar com o serviço de back-end.
 
 <p align="center"> 
-<img src="../static/6.4-calico4.png" style="max-width: 50%">
+<img src="../static/6.4-calico4.png" width="50%" height="50%">
 </p>
 
 14. Clean Up: Quando finalizar o lab, exclua seus recursos:
