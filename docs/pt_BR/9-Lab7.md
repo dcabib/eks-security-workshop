@@ -106,7 +106,7 @@ Muitas implantações de containers utilizam o Docker. O Docker usa Dockerfiles 
 2. Arquitetura da solução:
 
 <p align="left"> 
-<img src="../static/9.1-trivy9.png">
+<img src="../static/9.1-trivy1.png">
 </p>
 
 Veja como a solução funciona, conforme mostrado na Figura 1:
