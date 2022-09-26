@@ -28,6 +28,25 @@ aws configure get default.region
 
 Para o provisionamento do cluster, vamos usar o [**EKS Blueprints**](https://aws.amazon.com/blogs/containers/bootstrapping-clusters-with-eks-blueprints/). EKS Blueprints é uma coleção de módulos de infraestrutura como código (IaC) que ajuda a configurar e implantar clusters EKS consistentes e com addons instalados. Você pode usar EKS Blueprints para inicializar facilmente um cluster EKS com addons do Amazon EKS, bem como uma ampla variedade de addons populares de código aberto, incluindo Prometheus, Karpenter, Nginx, Traefik, AWS Load Balancer Controller, Fluent Bit, Keda , Argo CD e muito mais. O EKS Blueprints também ajuda a implementar controles de segurança relevantes necessários para operar cargas de trabalho de várias equipes no mesmo cluster.
 
+* Para isso vamos testar a versão do Terraform:
+
+``` 
+terraform -version
+```
+
+* Caso a saida seja: similar a:
+```
+Terraform v1.3.0
+on linux_amd64
+```
+
+* Executar:
+
+```
+sudo yum -y downgrade terraform-1.3.0-1.x86_64 terraform-1.2.9-1.x86_64
+```
+> OBS: A versão do Terraform deve ser inferior a 1.3.0 para garantir as compatibilidades dos modulos
+
 ### Etapa 1: clone o repositório usando o comando abaixo
 
 ```bash

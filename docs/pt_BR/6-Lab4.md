@@ -48,7 +48,7 @@ module "eks_blueprints_kubernetes_addons" {
 Vamos executar em seguida o Terraform plan e verificar os recursos criados por esta execução: 
 
 ```bash
-cd ~/environment/terraform/
+cd ~/environment/eks-security-workshop/terraform
 terraform plan
 ```
 Em seguida vamos executar o Terraform apply para criar recursos: 

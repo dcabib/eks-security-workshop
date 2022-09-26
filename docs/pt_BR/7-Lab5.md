@@ -372,8 +372,71 @@ E obter uma saída semelhante a essa:
 <img src="../static/7.6-secrets6.png">
 </p>
 
-***Add parte de cleanup!!!***
+7. Clean up:
+
+Para desinstalar desabilite o`External Secrets`na seção de complementos do nosso manifesto do terraform. Abra o`eks-security-workshop/terraform/main.tf`e mude o`enable_external_secrets`de`true`para`false`.
 
 ## Lab 5.2 - Secrets Store e CSI Driver
+
+1. Instalar o Kubernetes secrets store CSI driver com EKS Blueprints
+
+Para isso vamos habilitar o`Secrets Store CSI Driver`na seção de complementos do nosso manifesto do terraform. Abra o`eks-security-workshop/terraform/main.tf`e mude o`enable_secrets_store_csi_driver `de`false`para`true`.
+
+```terraform
+module "eks_blueprints_kubernetes_addons" {
+  source = "github.com/aws-ia/terraform-aws-eks-blueprints//modules/kubernetes-addons?ref=v4.0.7"
+
+  eks_cluster_id = module.eks_blueprints.eks_cluster_id
+
+  # EKS Managed Add-ons
+  enable_amazon_eks_vpc_cni    = true
+  enable_amazon_eks_coredns    = true
+  enable_amazon_eks_kube_proxy = true
+
+  # Add-ons
+  enable_aws_load_balancer_controller = true
+  enable_metrics_server               = true
+  enable_cluster_autoscaler           = true
+  enable_karpenter                    = false
+  enable_aws_cloudwatch_metrics       = false
+  enable_aws_for_fluentbit            = false
+  enable_external_secrets             = false
+  enable_secrets_store_csi_driver     = true
+  
+  tags = local.tags
+
+  depends_on = [module.eks_blueprints.managed_node_groups]
+}
+```
+
+Vamos executar em seguida o Terraform plan e verificar os recursos criados por esta execução: 
+
+```bash
+cd ~/environment/terraform/
+terraform plan
+```
+Em seguida vamos executar o Terraform apply para criar recursos: 
+
+```bash
+terraform apply --auto-approve
+```
+
+Observe os logs para verificar se o External secrets foi implantado com êxito.
+
+```bash
+kubectl get pods -n external-secrets
+```
+A saído do comando deve ser similar a essa: 
+
+```
+NAMESPACE          NAME                                                READY   STATUS    RESTARTS   AGE
+external-secrets   external-secrets-8cdbf85cd-k4hvs                    1/1     Running   0          87s
+external-secrets   external-secrets-cert-controller-655b7b7d45-bxh24   1/1     Running   0          87s
+external-secrets   external-secrets-webhook-75db54d748-85l8p           1/1     Running   0          87s
+```
+
+<p align="left"> 
+<img src="../static/7.7-secrets7.png">
+</p>
 
 [**Próximo >**](./8-Lab6.md)
