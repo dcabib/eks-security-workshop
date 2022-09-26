@@ -151,16 +151,103 @@ Os repositórios do CodeCommit precisam de pelo menos um arquivo para inicializa
 <img src="../static/9.3-trivy3.png">
 </p>
 
-*tentar fazer um gif com essas açoes*
-
-
-
 5. Simule uma imagem com vulnerabilidade
+
+Para esta etapa, você adicionará ao seu repositório do CodeCommit os arquivos necessários para iniciar uma verificação automatizada de vulnerabilidades do container.
+
+a. Verifique os arquivos na pasta lab7: 
+
+```
+cd ˜/enviroment/eks-security-workshop/lab7
+``` 
+
+*  buildspec.yml
+> Observação: No código buildspec.yml, os valores prefixados com $ serão preenchidos pelas variáveis de ambiente do CodeBuild que você criou anteriormente. Além disso, o comando trivy -f json -o results.json --exit-code 1 falhará em sua compilação forçando o Trivy a retornar um código de saída 1 ao encontrar uma vulnerabilidade crítica. Você pode adicionar níveis de gravidade adicionais aqui para forçar o Trivy a falhar em suas compilações e garantir que as vulnerabilidades de gravidade mais baixa não sejam publicadas no Amazon ECR.
+
+* sechub_parser.py: Esse script analisa os detalhes da vulnerabilidade do arquivo JSON que o Trivy gera, mapeia as informações para o [AWS Security Finding Format](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html)(ASFF) e as importa para o Security Hub.
+
+* Dockekrfile: O código clona um repositório GitHub mantido pela equipe do Trivy que possui pacotes propositadamente vulneráveis ​​que geram vulnerabilidades críticas.
+
+b. Vá para seu repositório do CodeCommit, selecione o menu suspenso "Add file" e selecione "Upload file".
+
+c. Na tela Upload file, selecione Choose file, selecione selecione o buildspec.yml, conclua a seção Commit changes to master adicionando o nome do autor e o endereço de e-mail e selecione Commit changes, conforme mostrado na figura abaixo:
+
+<p align="left"> 
+<img src="../static/9.4-trivy4.png">
+</p>
+ 
+* Para fazer upload do script Dockerfile e sechub_parser.py para o CodeCommit, repita as etapas b e c para cada um desses arquivos.
+
+* Seu pipeline será iniciado automaticamente em resposta a cada novo commit em seu repositório. Para verificar o status, volte para a exibição de status do pipeline do seu pipeline do CodePipeline.
+
+* Quando o CodeBuild for iniciado, selecione "Details" no estágio Build do CodePipeline, em BuildAction, para ir para a seção Build no console do CodeBuild. Para ver um fluxo de logs à medida que sua compilação avança, selecione Tail logs, conforme mostrado na figura abaixo.
+
+<p align="left"> 
+<img src="../static/9.5-trivy5.png">
+</p>
+
+* Depois que o Trivy terminar de escanear sua imagem, o CodeBuild falhará devido às vulnerabilidades críticas encontradas, conforme mostrado na Figura:
+> Observação: o comando especificado no estágio de pós-compilação será executado mesmo se a compilação do CodeBuild falhar. Isso ocorre por design e permite que o script sechub_parser.py seja executado e envie descobertas para o Security Hub.
+
+<p align="left"> 
+<img src="../static/9.6-trivy6.png">
+</p>
+
+* Agora você irá para o Security Hub para analisar melhor as descobertas e criar pesquisas salvas para uso futuro.
 
 6. Analise seu container com vulnerabilidade no AWS Security Hub
 
+Para esta etapa, você analisará as vulnerabilidades de seu container no Security Hub e usará a (findings view) exibição de descobertas para localizar informações no ASFF.
+
+* Vá para o console do Security Hub e selecione  Integrations (Integrações) no painel de navegação esquerdo.
+
+* Role para baixo até o Aqua Security integration card (cartão de integração do Aqua Security) e selecione See Findigns (Ver descobertas), conforme mostrado na Figura abaixo. Isso filtra apenas as descobertas do Aqua Security (Trivy).
+
+<p align="left"> 
+<img src="../static/9.7-trivy7.png">
+</p>
+
+* Agora você deve ver as vulnerabilidades críticas de sua varredura anterior na visualização Descobertas, conforme mostrado na Figura abaixo. Para ver mais detalhes de uma descoberta, selecione o Título de qualquer uma das vulnerabilidades e você verá os detalhes no lado direito da tela. Visualização de descobertas.
+
+<p align="left"> 
+<img src="../static/9.8-trivy8.png">
+</p>
+
+* Para abrir uma nova guia para um site sobre Vulnerabilidades e exposições comuns (CVE) para a descoberta, selecione o hiperlink na seção Remediação, conforme mostrado na Figura:
+
+<p align="left"> 
+<img src="../static/9.9-trivy9.png">
+</p>
+
+* Para ver o JSON do ASFF completo, no canto superior direito da visualização Findings, selecione o hiperlink para Finding ID.
+
+* Para encontrar informações mapeadas do Trivy, como o título do CVE e qual é a versão corrigida do pacote vulnerável, role para baixo até a seção Outros, conforme mostrado na Figura:
+
+<p align="left"> 
+<img src="../static/9.10-trivy10.png">
+</p>
+
+* Esta foi uma breve demonstração da exploração de descobertas com o Security Hub. Você pode usar ações personalizadas para definir ações de resposta e correção, como enviar essas descobertas para um sistema de tíquetes ou agregá-las em uma ferramenta de gerenciamento de eventos de informações de segurança (SIEM).
+
 7. Push uma imagem sem vulnerabilidade 
 
+Agora que você viu o Trivy funcionar corretamente com uma imagem vulnerável, você corrigirá as vulnerabilidades. 
+Nesse step edite o arquivo: ˜/enviroment/eks-security-workshop/lab7/Dockerfile
+Cole esse trecho de código:
+```
+FROM alpine:3.7
+RUN apk add --no-cache mysql-client
+ENTRYPOINT ["mysql"]
+```
+
+Salve e faça o upload no CodeCommit, repetindo os processos anteriores.
+
+8. Clean up:
+
+Para limpar tudo que fizemos temos 2 passos:
+* Desabilite o Security Hub
+* Destrua a stack do cloudformation
+* Desistale o Trivy
 
 ## Aprenda mais:
 
