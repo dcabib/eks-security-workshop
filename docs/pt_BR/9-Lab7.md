@@ -129,9 +129,8 @@ Para implantar a solução rapidamente, você usará um modelo do [AWS CloudForm
 3. Pré-requisitos
 
 * Você deve ter o Security Hub habilitado na região da AWS onde você implanta esta solução. No AWS Management Console, vá para AWS Security Hub e selecione Enable Security Hub.
-*adicionar esse step aqui com print*
+
 * Você deve ter a integração do Aqua Security habilitada no Security Hub na região onde você implanta esta solução. Para fazer isso, acesse o console do AWS Security Hub e, à esquerda, selecione Integrations, pesquise Aqua Security e selecione Accept Findings.
-*adicionar esse step aqui com print*
 
 4. Configuração
 
