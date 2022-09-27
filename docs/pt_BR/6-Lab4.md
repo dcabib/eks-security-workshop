@@ -34,7 +34,7 @@ module "eks_blueprints_kubernetes_addons" {
   enable_karpenter                    = false
   enable_aws_cloudwatch_metrics       = false
   enable_aws_for_fluentbit            = false
-  enable_external_secrets             = true
+  enable_external_secrets             = false
   enable_secrets_store_csi_driver     = false
   enable_calico                       = true
   enable_gatekeeper                   = false
