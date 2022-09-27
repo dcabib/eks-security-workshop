@@ -452,7 +452,7 @@ E a saída do comando kubeclt get crds:
 Para criar sua função de conta de serviço, execute o comando a seguir para associar a política (da seção Pré-requisitos) à sua conta de serviço. Substitua <NAMESPACE>, <CLUSTERNAME>, <IAM_policy_ARN>, <SERVICE_ACCOUNT_NAME> por seus próprios valores.
 ```
 eksctl create iamserviceaccount \
-    --name csi-secrets \
+    --name nginx-deployment-sa \
     --namespace default \ 
     --cluster eks-security-workshop \
     --attach-policy-arn <sua_policy_arn_aqui> \ 
@@ -501,4 +501,29 @@ spec:
 
 Para usar o ASCP, você cria o SecretProviderClass para fornecer mais alguns detalhes sobre como recuperar segredos do Secrets Manager. O SecretProviderClass DEVE estar no mesmo namespace que o pod que o referencia. Veja a seguir um exemplo de configuração de SecretProviderClass:
 
+```
+apiVersion: secrets-store.csi.x-k8s.io/v1alpha1
+kind: SecretProviderClass
+metadata:
+  name: aws-secrets
+spec:
+  provider: aws
+  parameters:                    # provider-specific parameters
+    objects:  |
+      - objectName: "MySecret2"
+        objectType: "secretsmanager"
+```
+
+6. Configure e implante os pods para montar os volumes com base nos secrets configurados
+
+Atualize seu YAML de implantação para usar o driver secrets-store.csi.k8s.io e faça referência ao recurso SecretProviderClass criado anteriormente. Isso deve ser salvo em sua área de trabalho local.
+
+Veja a seguir um exemplo de como configurar um pod para montar um volume com base no SecretProviderClass para recuperar segredos do Secrets Manager. Neste exemplo, usei NGINX. Mas para seu segredo, o ponto de montagem e a configuração de SecretProviderClass estarão no arquivo de especificação de implantação do pod.
+
+```
+kubectl apply -f ExampleSecretProviderClass.yaml
+kubectl apply -f ExampleDeployment.yaml 
+```
+
+kubectl exec -it $(kubectl get pods | awk '/nginx-deployment/{print $1}' | head -1) cat /mnt/secrets-store/MySecret; echo
 [**Próximo >**](./8-Lab6.md)

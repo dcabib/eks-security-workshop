@@ -106,7 +106,7 @@ Muitas implantações de containers utilizam o Docker. O Docker usa Dockerfiles 
 2. Arquitetura da solução:
 
 <p align="left"> 
-<img src="../static/9.1-trivy1.png">
+<img src="../static/9.1-trivy1.png" width="50%" height="50%">
 </p>
 
 Veja como a solução funciona, conforme mostrado na Figura 1:
@@ -136,7 +136,7 @@ Para esta etapa, você implantará o modelo do CloudFormation e fará a configur
 * Depois que a stack do CloudFormation for concluída, acesse o console do CloudFormation e selecione a guia Resources para ver os recursos criados, conforme mostrado na figura abaixo.
 
 <p align="left"> 
-<img src="../static/9.2-trivy2.png">
+<img src="../static/9.2-trivy2.png" width="50%" height="50%">
 </p>
 
 Configurando o repositório do CodeCommit:
@@ -148,7 +148,7 @@ Os repositórios do CodeCommit precisam de pelo menos um arquivo para inicializa
 * Na tela Criar um arquivo, insira readme no corpo do texto, nomeie o arquivo readme.md, insira seu nome como Nome do autor e seu endereço de e-mail e selecione Confirmar alterações, conforme mostrado na abaixo.
 
 <p align="left"> 
-<img src="../static/9.3-trivy3.png">
+<img src="../static/9.3-trivy3.png" width="50%" height="50%">
 </p>
 
 5. Simule uma imagem com vulnerabilidade
@@ -173,7 +173,7 @@ b. Vá para seu repositório do CodeCommit, selecione o menu suspenso "Add file"
 c. Na tela Upload file, selecione Choose file, selecione selecione o buildspec.yml, conclua a seção Commit changes to master adicionando o nome do autor e o endereço de e-mail e selecione Commit changes, conforme mostrado na figura abaixo:
 
 <p align="left"> 
-<img src="../static/9.4-trivy4.png">
+<img src="../static/9.4-trivy4.png" width="50%" height="50%">
 </p>
  
 * Para fazer upload do script Dockerfile e sechub_parser.py para o CodeCommit, repita as etapas b e c para cada um desses arquivos.
@@ -183,14 +183,14 @@ c. Na tela Upload file, selecione Choose file, selecione selecione o buildspec.y
 * Quando o CodeBuild for iniciado, selecione "Details" no estágio Build do CodePipeline, em BuildAction, para ir para a seção Build no console do CodeBuild. Para ver um fluxo de logs à medida que sua compilação avança, selecione Tail logs, conforme mostrado na figura abaixo.
 
 <p align="left"> 
-<img src="../static/9.5-trivy5.png">
+<img src="../static/9.5-trivy5.png" width="50%" height="50%">
 </p>
 
 * Depois que o Trivy terminar de escanear sua imagem, o CodeBuild falhará devido às vulnerabilidades críticas encontradas, conforme mostrado na Figura:
 > Observação: o comando especificado no estágio de pós-compilação será executado mesmo se a compilação do CodeBuild falhar. Isso ocorre por design e permite que o script sechub_parser.py seja executado e envie descobertas para o Security Hub.
 
 <p align="left"> 
-<img src="../static/9.6-trivy6.png">
+<img src="../static/9.6-trivy6.png" width="50%" height="50%">
 </p>
 
 * Agora você irá para o Security Hub para analisar melhor as descobertas e criar pesquisas salvas para uso futuro.
@@ -204,19 +204,19 @@ Para esta etapa, você analisará as vulnerabilidades de seu container no Securi
 * Role para baixo até o Aqua Security integration card (cartão de integração do Aqua Security) e selecione See Findigns (Ver descobertas), conforme mostrado na Figura abaixo. Isso filtra apenas as descobertas do Aqua Security (Trivy).
 
 <p align="left"> 
-<img src="../static/9.7-trivy7.png">
+<img src="../static/9.7-trivy7.png" width="50%" height="50%">
 </p>
 
 * Agora você deve ver as vulnerabilidades críticas de sua varredura anterior na visualização Descobertas, conforme mostrado na Figura abaixo. Para ver mais detalhes de uma descoberta, selecione o Título de qualquer uma das vulnerabilidades e você verá os detalhes no lado direito da tela. Visualização de descobertas.
 
 <p align="left"> 
-<img src="../static/9.8-trivy8.png">
+<img src="../static/9.8-trivy8.png" width="50%" height="50%">
 </p>
 
 * Para abrir uma nova guia para um site sobre Vulnerabilidades e exposições comuns (CVE) para a descoberta, selecione o hiperlink na seção Remediação, conforme mostrado na Figura:
 
 <p align="left"> 
-<img src="../static/9.9-trivy9.png">
+<img src="../static/9.9-trivy9.png" width="50%" height="50%">
 </p>
 
 * Para ver o JSON do ASFF completo, no canto superior direito da visualização Findings, selecione o hiperlink para Finding ID.
@@ -224,7 +224,7 @@ Para esta etapa, você analisará as vulnerabilidades de seu container no Securi
 * Para encontrar informações mapeadas do Trivy, como o título do CVE e qual é a versão corrigida do pacote vulnerável, role para baixo até a seção Outros, conforme mostrado na Figura:
 
 <p align="left"> 
-<img src="../static/9.10-trivy10.png">
+<img src="../static/9.10-trivy10.png" width="50%" height="50%">
 </p>
 
 * Esta foi uma breve demonstração da exploração de descobertas com o Security Hub. Você pode usar ações personalizadas para definir ações de resposta e correção, como enviar essas descobertas para um sistema de tíquetes ou agregá-las em uma ferramenta de gerenciamento de eventos de informações de segurança (SIEM).
