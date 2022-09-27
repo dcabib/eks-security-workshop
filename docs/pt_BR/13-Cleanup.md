@@ -10,4 +10,4 @@ terraform destroy --auto-approve
 ```
 Obrigado por participarem do Workshop! Fiquem a vontade para executar PR's! 
 
-[**< Voltar**](./13-Lab11.md)
+[**< Voltar**](./12-Lab10.md)
