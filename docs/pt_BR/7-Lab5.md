@@ -214,7 +214,13 @@ Para este exemplo, vamos criar um objeto SecretStore que faz referência ao noss
 Use a seguinte definição de objeto YAML para criar o recurso usando kubectl: 
 
 ```
-cat <<EOF > lab5/secretstore.yaml
+vim secretstore.yaml
+``` 
+
+E cole a seguintes linhas de código:
+OBS: Troque a region se necessário
+
+```
 apiVersion: external-secrets.io/v1beta1
 kind: SecretStore
 metadata:
@@ -223,12 +229,11 @@ spec:
   provider:
     aws:
       service: SecretsManager
-      region: us-east-1
+      region: us-east-2
       auth:
         jwt:
           serviceAccountRef:
             name: external-secrets-sa
-EOF
 ```
 Agora aplique:
 
@@ -253,30 +258,9 @@ Agora vamos criar nosso recurso ExternalSecret, especificando o secret que quere
 Use a seguinte definição de objeto YAML para criar o recurso usando kubectl. Substitua as áreas de destaque por seus valores específicos do Secrets Manager
 
 ```
-cat <<EOF > lab5/externalsecret.yaml
-apiVersion: external-secrets.io/v1beta1
-kind: ExternalSecret
-metadata:
-  name: external-secrets
-spec:
-  refreshInterval: 1h
-  secretStoreRef:
-    name: external-secrets
-    kind: SecretStore
-  target:
-    name: external-secrets-secret
-    creationPolicy: Owner
-  data:
-  - secretKey: lab-db-username
-    remoteRef:
-      key: prod/lab5/db #AWS Secrets Manager secret name
-      property: username #AWS Secrets Manager secret key
-  - secretKey: lab-db-password
-    remoteRef:
-      key: prod/lab5/db #AWS Secrets Manager secret name
-      property: password #AWS Secrets Manager secret key
+vim externalsecret.yaml
+``` 
 
-EOF
 ```
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
