@@ -10,9 +10,8 @@ Nesse workshop vamos implementar Falco no nosso cluster do Amazon EKS, integra-l
 
 Antes de iniciarmos, acesse a pasta do repositório criado pelo Lucas no seu Cloud9
 ```bash
-cd eks-security-with-falco
+cd ~/environment/eks-security-workshop/lab6/
 ```
-
 
 ## Implementando o Fluent Bit
 
