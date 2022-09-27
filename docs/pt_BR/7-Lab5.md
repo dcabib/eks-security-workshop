@@ -454,8 +454,9 @@ E a saída do comando kubeclt get crds:
 </p>
 
 Criar nova secret via cli:
-
-aws --region us-east-2 secretsmanager  create-secret --name MySecret --secret-string '{"username":"memeuser", "password":"csipass"}'
+```
+aws --region $AWS_REGION secretsmanager  create-secret --name MySecret --secret-string '{"username":"user", "password":"csipass"}'
+```
 
 Para criar sua função de conta de serviço, execute o comando a seguir para associar a política (da seção Pré-requisitos) à sua conta de serviço. Substitua <NAMESPACE>, <CLUSTERNAME>, <IAM_policy_ARN>, <SERVICE_ACCOUNT_NAME> por seus próprios valores.
 ```
@@ -467,7 +468,6 @@ eksctl create iamserviceaccount \
     --approve \
     --override-existing-serviceaccounts
 ```
-> OBS: Lembrando que a policy é mesma utilizado no lab 5.1
 
 Verificar se a criação funcionou com sucesso
 
