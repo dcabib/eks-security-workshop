@@ -40,6 +40,8 @@ module "eks_blueprints_kubernetes_addons" {
   enable_aws_for_fluentbit            = false
   enable_external_secrets             = true
   enable_secrets_store_csi_driver     = false
+  enable_calico                       = false
+  enable_gatekeeper                   = false
   
   tags = local.tags
 
@@ -412,6 +414,8 @@ module "eks_blueprints_kubernetes_addons" {
   enable_aws_for_fluentbit            = false
   enable_external_secrets             = false
   enable_secrets_store_csi_driver     = true
+  enable_calico                       = false
+  enable_gatekeeper                   = false
   
   tags = local.tags
 
