@@ -476,4 +476,29 @@ external-secrets   1         4d21h
 falco              1         11d
 ```
 
+4. Instalar o AWS Secrets & Configuration Provider
+
+O CSI driver permite que você monte seus secrets em seus pods EKS Kubernetes. Para recuperá-los do Secrets Manager para que o driver CSI possa montá-los, você precisa instalar o AWS Secrets & Configuration Provider (ASCP). Você faz isso executando o seguinte comando em seu terminal, que irá baixar o arquivo do instalador sem a necessidade de clonar todo o repositório.
+
+```
+cd ˜/environment/eks-security-workshop/lab5
+kubectl apply -f aws-provider-installer.yaml
+```
+
+5. Criar e implantar o recurso personalizado SecretProviderClass
+
+Para usar o Secrets Store CSI driver, você precisa criar um recurso personalizado SecretProviderClass. Isso fornece configurações de driver e parâmetros específicos do provedor para o próprio driver CSI. O recurso SecretProviderClass deve ter pelo menos os seguintes componentes:
+
+```
+apiVersion: secrets-store.csi.x-k8s.io/v1alpha1
+kind: SecretProviderClass
+metadata:
+  name: aws-secrets
+spec:
+  provider: aws                               
+  parameters:                                 # provider-specific parameters
+```
+
+Para usar o ASCP, você cria o SecretProviderClass para fornecer mais alguns detalhes sobre como recuperar segredos do Secrets Manager. O SecretProviderClass DEVE estar no mesmo namespace que o pod que o referencia. Veja a seguir um exemplo de configuração de SecretProviderClass:
+
 [**Próximo >**](./8-Lab6.md)
