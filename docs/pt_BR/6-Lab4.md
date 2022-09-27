@@ -157,15 +157,13 @@ kubectl get svc management-ui -n management-ui -o jsonpath="{.status.loadBalance
 ``` 
 
 5. Abra um navegador em seu sistema local e aponte-o para http://<loadbalancer-step-anterior>:9001/. Você deve ver na managemnet-ui (interface do usuário de gerenciamento). O nó C é o serviço do cliente, o nó F é o serviço de front-end e o nó B é o serviço de back-end. Cada nó tem acesso total à comunicação com todos os outros nós, conforme indicado pelas linhas coloridas em negrito.
-Acesse dessa forma:
+
+* Seu acesso será semelhante a esta figura:
 
 <p align="center"> 
-<img src="../static/6.5-calico5.png" width="50%" height="50%">
+<img src="../static/6.5-calico5.png" width="80%" height="80%">
 </p>
 
-<p align="center"> 
-<img src="../static/6.1-calico1.png" width="50%" height="50%">
-</p>
 
 6. Aplique as seguintes network policies (políticas de rede) para isolar os serviços uns dos outros:
 
