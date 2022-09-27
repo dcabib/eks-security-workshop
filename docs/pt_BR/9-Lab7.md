@@ -93,8 +93,9 @@ kubectl get configauditreports --all-namespaces -o wide
 ```
 
 Você pode executar o describe para ver no detalhe:
-
+```bash
 kubectl describe configauditreport <escolha um dos reports> -n <namespace>
+```
 
 ## Scan de Images
 
