@@ -146,7 +146,7 @@ Os repositórios do CodeCommit precisam de pelo menos um arquivo para inicializa
 * Role até a parte inferior da página, selecione a lista suspensa Adicionar arquivo e, em seguida, selecione Criar arquivo.
 * Na tela Criar um arquivo, insira readme no corpo do texto, nomeie o arquivo readme.md, insira seu nome como Nome do autor e seu endereço de e-mail e selecione Confirmar alterações, conforme mostrado na abaixo.
 
-<p align="left"> 
+<p align="center"> 
 <img src="../static/9.3-trivy3.png" width="80%" height="80%">
 </p>
 

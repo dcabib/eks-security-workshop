@@ -4,15 +4,15 @@
 
 # Data encryption and secrets management
 
-O Secret management (gerenciamento de segredos) é um aspecto desafiador, mas crítico, da execução de aplicativos em container seguros e dinâmicos em escala. Para dar suporte a essa necessidade de distribuir secrets(segredos ) com segurança para aplicativos em execução, o Kubernetes fornece funcionalidade nativa para gerenciar segredos na forma de Kubernetes secrets (segredos do Kubernetes). No entanto, muitos clientes optam por centralizar o gerenciamento de segredos fora de seus clusters Kubernetes usando armazenamentos de segredos externos, como o AWS Secrets Manager e Hashicorp Vault para melhorar a segurança, o gerenciamento e a capacidade de auditoria do uso de secrets (segredos).
+O Secret management (gerenciamento de segredos) é um aspecto desafiador, mas crítico, da execução de aplicativos em container seguros e dinâmicos em escala. Para dar suporte a essa necessidade de distribuir secrets (segredos) com segurança para aplicativos em execução, o Kubernetes fornece funcionalidade nativa para gerenciar segredos na forma de Kubernetes secrets (segredos do Kubernetes). No entanto, muitos clientes optam por centralizar o gerenciamento de segredos fora de seus clusters Kubernetes usando armazenamentos de segredos externos, como o AWS Secrets Manager e Hashicorp Vault para melhorar a segurança, o gerenciamento e a capacidade de auditoria do uso de secrets (segredos).
 
 O consumo de external secret stores (segredos de armazenamentos secretos externos) geralmente requer modificações no código do aplicativo para oferecer suporte a chamadas baseadas em API para o armazenamento externo para recuperar um segredo no tempo de execução do aplicativo. Ao executar aplicativos no Amazon EKS, você pode usar a flexibilidade do Kubernetes para expor secrets diretamente aos pods sem exigir alterações no código do aplicativo. Um exemplo de como fazer isso é usando o [AWS Secrets and Configuration Provider (ASCP) para o driver CSI do Kubernetes Secrets Store](https://secrets-store-csi-driver.sigs.k8s.io/). O ASCP usa o driver [CSI do Secrets Store para expor secrets do AWS Secrets Manager aos seus pods como um volume de armazenamento montado](https://aws.amazon.com/blogs/security/how-to-use-aws-secrets-configuration-provider-with-kubernetes-secrets-store-csi-driver/). Essa solução pode ser adotado hoje somente com o uso de EC2 como layer de computação.
 
-Os clientes que usam o Amazon EKS para orquestrar seus aplicativos tem a possibilidade de utilizar o AWS Fargate como sua camada de computação (compute layer) para reduzir a complexidade de gerenciamento da operação de suas cargas de trabalho em contêiner (workloads em container). Para clientes que têm clusters EKS com nós do AWS Fargate, será necessário um método diferente de consumo de segredos externos (external secrets), pois o ASCP com o CSI do armazenamento de segredos é implantado em seu cluster EKS como um daemonset. E os daemonsets não são suportados no Fargate.
+Os clientes que usam o Amazon EKS para orquestrar seus aplicativos tem a possibilidade de utilizar o AWS Fargate como sua camada de computação (compute layer) para reduzir a complexidade de gerenciamento da operação de suas cargas de trabalho em contaneir (workloads em container). Para clientes que têm clusters EKS com nós do AWS Fargate, será necessário um método diferente de consumo de segredos externos (external secrets), pois o ASCP com o CSI do armazenamento de segredos é implantado em seu cluster EKS como um daemonset. E os daemonsets não são suportados no Fargate.
 
-Uma opção para resolvermos isso é a utilização do Open Source [External Secrets Operator](https://github.com/external-secrets/external-secrets). O External Secrets gerencia seus segredos de maneira diferente do driver CSI do Armazenamento de Segredos. Em vez de montar segredos como volumes, os Segredos Externos lêem segredos de seu armazenamento do External Secrets e armazena automaticamente os valores como secrets nativo do Kubernetes no Control Panel do Kubernetes. O External Secrets é instalado como uma implantação em seu cluster e funcionam com clusters do Amazon EKS Fargate, bem como aqueles com nós baseados no Amazon EC2.
+Uma opção para resolvermos isso é a utilização do Open Source [External Secrets Operator](https://github.com/external-secrets/external-secrets). O External Secrets gerencia seus secrets de maneira diferente do driver CSI do Armazenamento de Segredos. Em vez de montar secrets como volumes, O External Secrets lêem secrets de seu armazenamento do External Secrets e armazena automaticamente os valores como secrets nativo do Kubernetes no Control Panel do Kubernetes. O External Secrets é instalado como uma implantação em seu cluster e funcionam com clusters do Amazon EKS Fargate, bem como aqueles com nós baseados no Amazon EC2.
 
-Nesse LAB iremos ter tanto a implementação do Secrets Store e CSI Driver (5.1) quanto do External Secrets com AWS Secrets Manager (5.2)
+Nesse LAB iremos ver tanto a implementação do Secrets Store e CSI Driver (5.2) quanto do External Secrets com AWS Secrets Manager (5.1)
 
 ## Lab 5.1 - External Secrets com AWS Secrets Manager
 
@@ -448,6 +448,10 @@ E a saída do comando kubeclt get crds:
 <p align="left"> 
 <img src="../static/7.8-secrets8.png">
 </p>
+
+Criar nova secret via cli:
+
+aws --region us-east-2 secretsmanager  create-secret --name MySecret --secret-string '{"username":"memeuser", "password":"csipass"}'
 
 Para criar sua função de conta de serviço, execute o comando a seguir para associar a política (da seção Pré-requisitos) à sua conta de serviço. Substitua <NAMESPACE>, <CLUSTERNAME>, <IAM_policy_ARN>, <SERVICE_ACCOUNT_NAME> por seus próprios valores.
 ```

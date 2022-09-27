@@ -34,14 +34,13 @@ Para o provisionamento do cluster, vamos usar o [**EKS Blueprints**](https://aws
 terraform -version
 ```
 
-* Caso a saida seja: similar a:
+* Caso a saida seja superior a versão 1.2.9, por exemplo:
 ```
 Terraform v1.3.0
 on linux_amd64
 ```
 
 * Executar:
-
 ```
 sudo yum -y downgrade terraform-1.3.0-1.x86_64 terraform-1.2.9-1.x86_64
 ```
