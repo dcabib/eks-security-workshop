@@ -493,7 +493,7 @@ cd ˜/environment/eks-security-workshop/lab5
 kubectl apply -f aws-provider-installer.yaml
 ```
 
-5. Criar e implantar o recurso personalizado SecretProviderClass
+5. Criar e implantar o recurso personalizado SecretProviderClass [Explicação]
 
 Para usar o Secrets Store CSI driver, você precisa criar um recurso personalizado SecretProviderClass. Isso fornece configurações de driver e parâmetros específicos do provedor para o próprio driver CSI. O recurso SecretProviderClass deve ter pelo menos os seguintes componentes:
 
@@ -529,10 +529,12 @@ Atualize seu YAML de implantação para usar o driver secrets-store.csi.k8s.io e
 Veja a seguir um exemplo de como configurar um pod para montar um volume com base no SecretProviderClass para recuperar segredos do Secrets Manager. Neste exemplo, usei NGINX. Mas para seu segredo, o ponto de montagem e a configuração de SecretProviderClass estarão no arquivo de especificação de implantação do pod.
 
 ```
-kubectl apply -f ExampleSecretProviderClass.yaml
-kubectl apply -f ExampleDeployment.yaml 
+kubectl apply -f ~/environment/eks-security-workshop/lab5/ExampleSecretProviderClass.yaml
+kubectl apply -f ~/environment/eks-security-workshop/lab5/ExampleDeployment.yaml 
 ```
-
+Para validar as secrets do Secret Manager execute o comando a seguir:
+```
 kubectl exec -it $(kubectl get pods | awk '/nginx-deployment/{print $1}' | head -1) cat /mnt/secrets-store/MySecret; echo
+```
 
 [**Próximo >**](./8-Lab6.md)
