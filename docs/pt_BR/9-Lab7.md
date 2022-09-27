@@ -210,7 +210,7 @@ Para esta etapa, você analisará as vulnerabilidades de seu container no Securi
 * Agora você deve ver as vulnerabilidades críticas de sua varredura anterior na visualização Descobertas, conforme mostrado na Figura abaixo. Para ver mais detalhes de uma descoberta, selecione o Título de qualquer uma das vulnerabilidades e você verá os detalhes no lado direito da tela. Visualização de descobertas.
 
 <p align="left"> 
-<img src="../static/9.8-trivy8.png" width="60%" height="60%">
+<img src="../static/9.8-trivy8.png" width="80%" height="80%">
 </p>
 
 * Para abrir uma nova guia para um site sobre Vulnerabilidades e exposições comuns (CVE) para a descoberta, selecione o hiperlink na seção Remediação, conforme mostrado na Figura:
