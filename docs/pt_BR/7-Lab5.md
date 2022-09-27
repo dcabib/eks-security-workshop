@@ -534,4 +534,5 @@ kubectl apply -f ExampleDeployment.yaml
 ```
 
 kubectl exec -it $(kubectl get pods | awk '/nginx-deployment/{print $1}' | head -1) cat /mnt/secrets-store/MySecret; echo
+
 [**Próximo >**](./8-Lab6.md)
