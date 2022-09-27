@@ -158,6 +158,7 @@ Sua policy ficará similar a essa:
 4. Com nossa secret criada e uma policy para ler a mesma agora é a hora de criarmos uma IAM Service Account (SA) utilizando essa IAM Role que acabamos de criar:
 OBS: Em attach-policy-arn adicione o ARN da IAM Policy que criamos e podemos viasualizar na figura acima.
 
+```
 eksctl create iamserviceaccount \
     --name external-secrets \
     --namespace default \ 
@@ -165,6 +166,7 @@ eksctl create iamserviceaccount \
     --attach-policy-arn <sua_policy_arn_aqui> \ 
     --approve \
     --override-existing-serviceaccounts
+```
 
 Verificar se a criação funcionou com sucesso
 
