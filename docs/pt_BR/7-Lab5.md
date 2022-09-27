@@ -20,6 +20,8 @@ Nesse LAB iremos ver tanto a implementação do Secrets Store e CSI Driver (5.2)
 
 Para isso vamos habilitar o`External Secrets`na seção de complementos do nosso manifesto do terraform. Abra o`eks-security-workshop/terraform/main.tf`e mude o`enable_external_secrets`de`false`para`true`.
 
+Arquivo: ~/environment/eks-security-workshop/terraform/main.tf
+
 ```terraform
 module "eks_blueprints_kubernetes_addons" {
   source = "github.com/aws-ia/terraform-aws-eks-blueprints//modules/kubernetes-addons?ref=v4.0.7"
@@ -77,7 +79,7 @@ external-secrets   external-secrets-webhook-75db54d748-85l8p           1/1     R
 
 2. Criar as secrets no AWS Secrets Manager:
 
-Acesse: https://us-east-1.console.aws.amazon.com/secretsmanager/ 
+Acesse: https://us-east-2.console.aws.amazon.com/secretsmanager/ 
 
 Escolha "store a new secret"
 
@@ -116,7 +118,7 @@ Nos demais passos siga sem alterar e ao final do processo terá:
 
 Iremos criar manualmente na console AWS:
 
-Acessar IAM na console: https://us-east-1.console.aws.amazon.com/iamv2
+Acessar IAM na console: https://us-east-2.console.aws.amazon.com/iamv2
 
 Clicar em "policies" e dar um "create policy""
 
@@ -227,7 +229,7 @@ spec:
   provider:
     aws:
       service: SecretsManager
-      region: us-east-1
+      region: us-east-2
       auth:
         jwt:
           serviceAccountRef:

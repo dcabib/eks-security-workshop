@@ -49,7 +49,8 @@ kubectl -n logging describe sa fluent-bit
 Implemente o Fluent Bit
 
 ```bash
-kubectl apply -f ˜/environment/eks-security-workshop/lab6/fluent-bit/
+cd ~/environment/eks-security-workshop/lab6/fluent-bit/
+kubectl apply -f fluent-bit.yaml
 ```
 
 Tenha certeza de que todos os Pods estejam em status "Running"
@@ -86,7 +87,8 @@ Abra o Log Stream **alerts**. Nele teremos os logs gerados pelo Falco.
 Instale o NGINX para usarmos como nossa app de teste.
 
 ```bash
-kubectl apply -f ˜/environment/eks-security-workshop/lab6/deployment/
+cd ~/environment/eks-security-workshop/lab6/deployment
+kubectl apply -f deployment-nginx.yaml
 ```
 ## Testando as regras default
 
@@ -121,7 +123,8 @@ Vamos agora criar uma regra customizada que irá nos notificar toda vez que o co
 Execute o comando a seguir para atualizar o chart com o valor customizado
 
 ```shell
-helm upgrade falco -f ˜/environment/eks-security-workshop/lab6/custom-rules/custom-rules.yaml falcosecurity/falco
+cd ~/environment/eks-security-workshop/lab6/custom-rules
+helm upgrade falco -f custom-rules.yaml falcosecurity/falco
 
 kubectl get po -ndefault -w
 ```

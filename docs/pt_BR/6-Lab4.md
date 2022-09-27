@@ -16,6 +16,8 @@ a. (preferencial) Utilize os addons do EKS Blueprints para instalar o Calico em 
 
 Para isso vamos habilitar o`Calico`na seção de complementos do nosso manifesto do terraform. Abra o`eks-security-workshop/terraform/main.tf`e mude o`enable_calico`de`false`para`true`.
 
+Arquivo: ~/environment/eks-security-workshop/terraform/main.tf
+
 ```terraform
 module "eks_blueprints_kubernetes_addons" {
   source = "github.com/aws-ia/terraform-aws-eks-blueprints//modules/kubernetes-addons?ref=v4.10.0"
@@ -219,6 +221,6 @@ kubectl delete -f https://projectcalico.docs.tigera.io/security/tutorials/kubern
 kubectl delete -f https://projectcalico.docs.tigera.io/security/tutorials/kubernetes-policy-demo/manifests/00-namespace.yaml
 kubectl delete -f 01-management-ui.yaml
 ``` 
-E volte seu ˜/environment/eks-security-workshop/terraform/main.tf: enable_calico = false realizando o plan e o apply novamente a partir do path /terraform.
+E volte seu ~/environment/eks-security-workshop/terraform/main.tf: enable_calico = false realizando o plan e o apply novamente a partir do path /terraform.
 
 [**Próximo >**](./7-Lab5.md)
