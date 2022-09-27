@@ -83,7 +83,7 @@ kubectl get vulnerabilityreports --all-namespaces -o wide
 E então você pode acessar os detalhes do seu scan de segurança:
 
 ```bash
-kubectl describe  vulnerabilityreports <name of one of the above reports> 
+kubectl get vulnerabilityreports <escolha um dos reports> -n <namespace>
 ```
 
 O mesmo processo pode ser aplicado para acessar o Configauditreports:
@@ -91,6 +91,11 @@ O mesmo processo pode ser aplicado para acessar o Configauditreports:
 ```bash
 kubectl get configauditreports --all-namespaces -o wide 
 ```
+
+Você pode executar o describe para ver no detalhe:
+
+kubectl describe configauditreport <escolha um dos reports> -n <namespace>
+
 ## Scan de Images
 
 ### Como criar um pipeline de CI/CD para verificação de vulnerabilidades de contêiner com Trivy e AWS Security Hub
