@@ -30,13 +30,12 @@ sudo rpm -ivh https://github.com/aquasecurity/trivy/releases/download/v0.32.0/tr
 ```
 
 Verificar  configurações incorretas em arquivos de IaC como Terraform (para verificar a criação do cluster EKS) e Dockerfile
-> No caso é ˜environment/eks-security-workshop/terraform 
+> No caso é ˜/environment/eks-security-workshop/terraform 
 
 Comando: 
 ```bash
-trivy config [SEU_IAC_DIR]
+trivy config ˜/environment/eks-security-workshop/terraform 
 ```
-
 
 No nosso workshop podemos aplicar no diretório eks-security-workshop/terraform
 
