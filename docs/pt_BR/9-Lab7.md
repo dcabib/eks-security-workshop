@@ -118,8 +118,7 @@ Veja como a solução funciona, conforme mostrado na Figura 1:
 * Se nenhuma vulnerabilidade crítica for encontrada, as imagens do Docker serão consideradas como aprovadas na verificação e enviadas ao [Amazon Elastic Container Registry (ECR)](https://aws.amazon.com/ecr/), para que possam ser implantadas.
 
 > Observação: o CodePipeline oferece suporte a diferentes fontes, como Amazon Simple Storage Service (Amazon S3) ou GitHub. Se você estiver confortável com esses serviços, sinta-se à vontade para substituí-los por este passo a passo da solução.
-
-> Para implantar a solução rapidamente, você usará um modelo do [AWS CloudFormation]() para implantar todos os serviços necessários.
+Para implantar a solução rapidamente, você usará um modelo do [AWS CloudFormation]() para implantar todos os serviços necessários.
 
 3. Pré-requisitos
 
