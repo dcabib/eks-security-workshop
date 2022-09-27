@@ -8,7 +8,7 @@
 export ACCOUNT_ID=$(aws sts get-caller-identity --output text --query Account)
 export AWS_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.region')
 export AZS=($(aws ec2 describe-availability-zones --query 'AvailabilityZones[].ZoneName' --output text --region $AWS_REGION))
-export CLUSTER_NAME='latam-containers-roadshow'
+export CLUSTER_NAME='eks-security-workshop'
 export TF_VAR_aws_region="${AWS_REGION}"
 ```
 

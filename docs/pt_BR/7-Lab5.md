@@ -50,7 +50,7 @@ module "eks_blueprints_kubernetes_addons" {
 Vamos executar em seguida o Terraform plan e verificar os recursos criados por esta execução: 
 
 ```bash
-cd ~/environment/terraform/
+cd ~/environment/eks-security-workshop/terraform/
 terraform plan
 ```
 Em seguida vamos executar o Terraform apply para criar recursos: 
@@ -158,7 +158,7 @@ OBS: Em attach-policy-arn adicione o ARN da IAM Policy que criamos e podemos via
 
 eksctl create iamserviceaccount \
     --name external-secrets \
-    --namespace default \ #verificar em qual namespace deve ser criado!
+    --namespace default \ 
     --cluster eks-security-workshop \
     --attach-policy-arn <sua_policy_arn_aqui> \ 
     --approve \
@@ -378,7 +378,17 @@ Para desinstalar desabilite o`External Secrets`na seção de complementos do nos
 
 ## Lab 5.2 - Secrets Store e CSI Driver
 
-1. Instalar o Kubernetes secrets store CSI driver com EKS Blueprints
+1. Visão geral
+
+Neste lab, mostrarei como configurar o AWS Secrets & Configuration Provider (ASCP) para trabalhar com o driver CSI do Secrets Store em seus clusters Kubernetes. O driver CSI do Secrets Store permite que o Kubernetes monte segredos armazenados em armazenamentos de segredos externos nos pods como volumes. Depois que os volumes são anexados, os dados são montados no sistema de arquivos do container. Neste exemplo, o armazenamento secreto externo é o Secrets Manager.
+
+2. Arquitetura:
+
+<p align="left"> 
+<img src="../static/7.7-secrets7.png">
+</p>
+
+3. Instalar o Kubernetes secrets store CSI driver com EKS Blueprints
 
 Para isso vamos habilitar o`Secrets Store CSI Driver`na seção de complementos do nosso manifesto do terraform. Abra o`eks-security-workshop/terraform/main.tf`e mude o`enable_secrets_store_csi_driver `de`false`para`true`.
 
@@ -412,7 +422,7 @@ module "eks_blueprints_kubernetes_addons" {
 Vamos executar em seguida o Terraform plan e verificar os recursos criados por esta execução: 
 
 ```bash
-cd ~/environment/terraform/
+cd ~/environment/eks-security-workshop/terraform/
 terraform plan
 ```
 Em seguida vamos executar o Terraform apply para criar recursos: 
@@ -426,17 +436,44 @@ Observe os logs para verificar se o External secrets foi implantado com êxito.
 ```bash
 kubectl get pods -n external-secrets
 ```
-A saído do comando deve ser similar a essa: 
+A saída do comando deve ser similar a essa: 
 
 ```
-NAMESPACE          NAME                                                READY   STATUS    RESTARTS   AGE
-external-secrets   external-secrets-8cdbf85cd-k4hvs                    1/1     Running   0          87s
-external-secrets   external-secrets-cert-controller-655b7b7d45-bxh24   1/1     Running   0          87s
-external-secrets   external-secrets-webhook-75db54d748-85l8p           1/1     Running   0          87s
+NAME                             READY   STATUS    RESTARTS   AGE
+secrets-store-csi-driver-g4wpq   3/3     Running   0          7m34s
+secrets-store-csi-driver-pkdpx   3/3     Running   0          7m34s
 ```
+E a saída do comando kubeclt get crds:
 
 <p align="left"> 
-<img src="../static/7.7-secrets7.png">
+<img src="../static/7.8-secrets8.png">
 </p>
+
+Para criar sua função de conta de serviço, execute o comando a seguir para associar a política (da seção Pré-requisitos) à sua conta de serviço. Substitua <NAMESPACE>, <CLUSTERNAME>, <IAM_policy_ARN>, <SERVICE_ACCOUNT_NAME> por seus próprios valores.
+```
+eksctl create iamserviceaccount \
+    --name csi-secrets \
+    --namespace default \ 
+    --cluster eks-security-workshop \
+    --attach-policy-arn <sua_policy_arn_aqui> \ 
+    --approve \
+    --override-existing-serviceaccounts
+```
+> OBS: Lembrando que a policy é mesma utilizado no lab 5.1
+
+Verificar se a criação funcionou com sucesso
+
+```
+kubectl get sa
+```
+Deve ter uma saída semelhante a essa
+
+```
+NAME               SECRETS   AGE
+csi-secrets        1         83s
+default            1         11d
+external-secrets   1         4d21h
+falco              1         11d
+```
 
 [**Próximo >**](./8-Lab6.md)
